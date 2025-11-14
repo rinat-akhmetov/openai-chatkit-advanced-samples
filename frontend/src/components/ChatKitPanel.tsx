@@ -3,12 +3,16 @@ import { ChatKit, useChatKit } from "@openai/chatkit-react";
 import {
   CHATKIT_API_URL,
   CHATKIT_API_DOMAIN_KEY,
+  CHATKIT_CHANNEL_CODE,
+  CHATKIT_INSTANCE,
   STARTER_PROMPTS,
   PLACEHOLDER_INPUT,
   GREETING,
 } from "../lib/config";
+import { createChatkitFetch } from "../lib/chatkit-fetch";
 import type { FactAction } from "../hooks/useFacts";
 import type { ColorScheme } from "../hooks/useColorScheme";
+import type { PageContext } from "../types/page-context";
 
 type ChatKitPanelProps = {
   theme: ColorScheme;
@@ -25,8 +29,22 @@ export function ChatKitPanel({
 }: ChatKitPanelProps) {
   const processedFacts = useRef(new Set<string>());
 
+  // Create page context with required fields for backend multi-tenant thread isolation
+  const pageContext: PageContext = {
+    channelCode: CHATKIT_CHANNEL_CODE,
+    instance: CHATKIT_INSTANCE,
+    entityType: "demo",
+    pageName: "chatkit-demo",
+    entityState: {},
+    permissibleFields: [],
+  };
+
   const chatkit = useChatKit({
-    api: { url: CHATKIT_API_URL, domainKey: CHATKIT_API_DOMAIN_KEY },
+    api: {
+      url: CHATKIT_API_URL,
+      domainKey: CHATKIT_API_DOMAIN_KEY,
+      fetch: createChatkitFetch(pageContext),
+    },
     theme: {
       colorScheme: theme,
       color: {

@@ -17,6 +17,9 @@ export function createChatkitFetch(pageContext: PageContext) {
     // Add page context as header so the backend can extract it
     headers.set('X-Page-Context', JSON.stringify(pageContext));
 
+    // Add authorization header for debug access
+    headers.set('Authorization', 'Bearer debug-token');
+
     // Execute the request with the modified headers
     return fetch(url, {
       ...options,

@@ -49,6 +49,11 @@ export const STARTER_PROMPTS: StartScreenPrompt[] = [
     prompt: "How to add a note to a SPA?",
     icon: "book-open",
   },
+  {
+    label: "Create trading program from this PDF",
+    prompt: "Create a trading program from a PDF",
+    icon: "book-open",
+  },
 ];
 
 export const PLACEHOLDER_INPUT = "Share a fact about yourself";

@@ -43,7 +43,13 @@ export function ChatKitPanel({
     api: {
       url: CHATKIT_API_URL,
       domainKey: CHATKIT_API_DOMAIN_KEY,
+      uploadStrategy: {
+        type: 'two_phase'
+      },
       fetch: createChatkitFetch(pageContext),
+    },
+    disclaimer: {
+      text: "AI-generated responses may be inaccurate.",
     },
     theme: {
       colorScheme: theme,
@@ -66,9 +72,17 @@ export function ChatKitPanel({
     },
     composer: {
       placeholder: PLACEHOLDER_INPUT,
+      attachments: {
+        enabled: true,
+        accept: {
+          'application/*': ['.pdf'],
+        },
+        maxCount: 1,
+        maxSize: 10 * 1024 * 1024 // 10MB
+      },
     },
     threadItemActions: {
-      feedback: false,
+      feedback: true
     },
     onClientTool: async (invocation) => {
       if (invocation.name === "switch_theme") {

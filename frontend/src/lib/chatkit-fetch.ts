@@ -112,7 +112,7 @@ async function transformAzureUploadRequest(
  * @param pageContext - The page context to send with requests
  * @returns Custom fetch function for ChatKit
  */
-export function createChatkitFetch(pageContext: PageContext) {
+export function createChatkitFetch(pageContext: PageContext, authToken?: string) {
   return async (url: string | Request, options?: RequestInit): Promise<Response> => {
     // Convert Request object to string URL if needed
     const urlString = typeof url === 'string' ? url : url.url;
@@ -140,8 +140,10 @@ export function createChatkitFetch(pageContext: PageContext) {
       // Add page context as header so the backend can extract it
       headers.set('X-Page-Context', JSON.stringify(pageContext));
 
-      // Add authorization header for debug access
-      headers.set('Authorization', 'Bearer debug-token');
+      // Add authorization header if token provided
+      if (authToken) {
+        headers.set('Authorization', `Bearer ${authToken}`);
+      }
     }
 
     // Transform Azure upload requests if needed

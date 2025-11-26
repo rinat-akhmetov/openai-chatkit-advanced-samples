@@ -5,6 +5,7 @@ import {
   CHATKIT_API_DOMAIN_KEY,
   CHATKIT_CHANNEL_CODE,
   CHATKIT_INSTANCE,
+  CHATKIT_AUTH_TOKEN,
   STARTER_PROMPTS,
   PLACEHOLDER_INPUT,
   GREETING,
@@ -46,7 +47,7 @@ export function ChatKitPanel({
       uploadStrategy: {
         type: 'two_phase'
       },
-      fetch: createChatkitFetch(pageContext),
+      fetch: createChatkitFetch(pageContext, CHATKIT_AUTH_TOKEN),
     },
     disclaimer: {
       text: "AI-generated responses may be inaccurate.",

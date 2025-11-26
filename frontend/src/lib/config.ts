@@ -29,6 +29,13 @@ export const CHATKIT_CHANNEL_CODE =
 export const CHATKIT_INSTANCE =
   import.meta.env.VITE_CHATKIT_INSTANCE ?? "uk";
 
+/**
+ * Authentication token for ChatKit API requests.
+ * Required for MCP server authentication.
+ */
+export const CHATKIT_AUTH_TOKEN =
+  import.meta.env.VITE_CHATKIT_AUTH_TOKEN ?? "debug-token";
+
 export const THEME_STORAGE_KEY = "chatkit-boilerplate-theme";
 
 export const GREETING = "Welcome to the ChatKit Demo";

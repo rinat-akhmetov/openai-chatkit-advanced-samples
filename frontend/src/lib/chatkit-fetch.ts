@@ -138,7 +138,12 @@ export function createChatkitFetch(pageContext: PageContext, authToken?: string)
 
     if (!isAzureRequest) {
       // Add page context as header so the backend can extract it
-      headers.set('X-Page-Context', JSON.stringify(pageContext));
+      // Include currentPath dynamically at request time
+      const contextWithPath: PageContext = {
+        ...pageContext,
+        currentPath: typeof window !== 'undefined' ? window.location.pathname : undefined,
+      };
+      headers.set('X-Page-Context', JSON.stringify(contextWithPath));
 
       // Add authorization header if token provided
       if (authToken) {

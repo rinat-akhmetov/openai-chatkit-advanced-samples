@@ -35,4 +35,10 @@ export interface PageContext {
    * Permissible fields for agent instructions.
    */
   permissibleFields?: any[];
+
+  /**
+   * The current window path (window.location.pathname).
+   * Sent with every request to provide navigation context.
+   */
+  currentPath?: string;
 }
